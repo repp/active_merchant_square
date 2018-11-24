@@ -79,11 +79,10 @@ module ActiveMerchant #:nodoc:
         end
 
         post = options.slice(:buyer_email_address, :delay_capture, :note,
-            :reference_id)
+            :reference_id, :order_id)
         add_idempotency_key(post, options)
         add_amount(post, money, options)
         add_address(post, options)
-        post[:reference_id] = options[:order_id] if options[:order_id]
         post[:note] = options[:description] if options[:description]
 
         MultiResponse.run do |r|
